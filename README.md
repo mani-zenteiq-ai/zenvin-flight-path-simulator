@@ -79,8 +79,7 @@ python simulate_flights.py --file flights_gps.csv --num_steps 50
   - **Animated flight movements** using `AntPath`
 
 ### **Example Map Screenshot**
-![Flight Map Preview](https://upload.wikimedia.org/wikipedia/commons/8/83/India_location_map.svg)  
-(*Replace with actual screenshot of your generated `flights_map.html`.*)
+![alt text](image.png)
 
 ---
 
