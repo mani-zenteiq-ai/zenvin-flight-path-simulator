@@ -88,7 +88,7 @@ python simulate_flights.py --file flights_gps.csv --num_steps 50
 | Script | Purpose |
 |--------|---------|
 | `generate_random_flights.py` | Generates random flight data within India |
-| `simulate_flights_gps_folium.py` | Simulates and visualizes flights on an interactive folium map |
+| `simulate_flights.py` | Simulates and visualizes flights on an interactive folium map |
 
 ---
 
