@@ -68,6 +68,7 @@ def cartesian_to_gps(x, y, z, ref_lat, ref_lon, ref_alt):
     alt : float
         Altitude in meters
     """
+
     lat = ref_lat + (y / METERS_PER_DEGREE_LAT)
     lon = ref_lon + (x / (METERS_PER_DEGREE_LAT * np.cos(np.radians(ref_lat))))
     alt = ref_alt + z
@@ -76,33 +77,35 @@ def cartesian_to_gps(x, y, z, ref_lat, ref_lon, ref_alt):
 def simulate_flights(flight_file="flights_gps.csv", num_steps=100):
     # Load flight details from CSV
     """
-    Simulate GPS flight paths and save them to a Folium map.
+    Simulate GPS flight paths from a CSV file and visualize them on an interactive map.
+
+    This function reads flight data, converts it from GPS to Cartesian coordinates,
+    simulates the paths of the flights over a series of time steps, and visualizes
+    the paths on a Folium map with animated paths and markers. It also saves the
+    flight positions at each time step to separate CSV files.
 
     Parameters
     ----------
-    flight_file : str
-        Path to a CSV file containing flight details:
-            - Flight_ID (int): Unique identifier for the flight
-            - Start_Latitude (float): Latitude of the starting point
-            - Start_Longitude (float): Longitude of the starting point
-            - Start_Altitude (float): Altitude of the starting point
-            - End_Latitude (float): Latitude of the ending point
-            - End_Longitude (float): Longitude of the ending point
-            - End_Altitude (float): Altitude of the ending point
-            - Velocity (float): Speed of the flight in meters per second
-    num_steps : int
-        Number of time steps for the simulation
+    flight_file : str, optional
+        Path to a CSV file containing flight details, by default "flights_gps.csv".
+        The CSV should have columns: Flight_ID, Start_Latitude, Start_Longitude,
+        Start_Altitude, End_Latitude, End_Longitude, End_Altitude, and Velocity.
+    
+    num_steps : int, optional
+        Number of time steps for the simulation, by default 100.
+
+    Returns
+    -------
+    None
 
     Notes
     -----
-    The function will create a directory named "flight_positions_by_time" and save
-    each timestamp's data to a separate CSV file. The CSV files will have the same
-    structure as the input CSV file, with additional columns for Latitude, Longitude,
-    and Altitude at each timestamp.
-
-    The function will also generate a 3D plot of all flights, with start and end markers
-    and direction arrows.
+    The function creates a directory named "flight_positions_by_time" and saves
+    each timestamp's data to CSV files. It also generates a 3D plot of all flights,
+    with start and end markers and direction arrows. The interactive map is
+    saved as "flights_map.html".
     """
+
     flights_df = pd.read_csv(flight_file)
 
     # Time step for simulation
@@ -151,7 +154,7 @@ def simulate_flights(flight_file="flights_gps.csv", num_steps=100):
             # Store timestep data
             if t not in time_steps_data:
                 time_steps_data[t] = []
-            time_steps_data[t].append([flight_id, lat, lon, alt])
+            time_steps_data[t].append([flight_id, lat, lon, alt, velocity])
 
         # Add flight path to map
         folium.PolyLine(flight_path, color="blue", weight=2.5, opacity=0.8, tooltip=f"Flight {flight_id}").add_to(flight_map)
@@ -163,18 +166,18 @@ def simulate_flights(flight_file="flights_gps.csv", num_steps=100):
         folium.Marker(
             location=flight_path[0], 
             icon=folium.Icon(color="green", icon="plane", prefix="fa"),
-            popup=f"Start of Flight {flight_id}"
+            popup=f"Start of Flight {flight_id} (Velocity: {velocity} km/h)"
         ).add_to(flight_map)
 
         folium.Marker(
             location=flight_path[-1], 
             icon=folium.Icon(color="red", icon="flag", prefix="fa"),
-            popup=f"End of Flight {flight_id}"
+            popup=f"End of Flight {flight_id} (Velocity: {velocity} km/h)"
         ).add_to(flight_map)
 
     # Save flight position data by timestamp
     for t, data in time_steps_data.items():
-        df_time = pd.DataFrame(data, columns=["Flight_ID", "Latitude", "Longitude", "Altitude"])
+        df_time = pd.DataFrame(data, columns=["Flight_ID", "Latitude", "Longitude", "Altitude", "Velocity"])
         timestamp_filename = f"{output_dir}/flight_positions_t{t:.1f}.csv"
         df_time.to_csv(timestamp_filename, index=False)
 
