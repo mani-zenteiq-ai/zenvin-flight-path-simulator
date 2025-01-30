@@ -36,9 +36,9 @@ python generate_random_flights.py --num_flights <NUMBER> --output <FILENAME>
 
 ### **Example**
 ```bash
-python generate_random_flights.py --num_flights 100 --output my_flights.csv
+python generate_random_flights.py --num_flights 100 --output flights_gps.csv
 ```
-- Generates **100 flights** and saves them to `my_flights.csv`.
+- Generates **100 flights** and saves them to `flights_gps.csv`.
 
 ### **Example CSV Output (`flights_gps.csv`)**
 ```
