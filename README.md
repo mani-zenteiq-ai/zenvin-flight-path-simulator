@@ -1,13 +1,13 @@
-Here is the **`README.md`** file for your GitHub repository, documenting both `generate_random_flights.py` and `simulate_flights_gps_folium.py`.  
+Here is the **updated `README.md`** file incorporating the new feature of saving flight data by timesteps.
 
 ---
 
 # **Flight Path Simulation and Visualization**
 
-This repository contains Python scripts to **generate random flight data** within India and **visualize flight paths** on an interactive map using `folium`. The project consists of two main scripts:
+This repository contains Python scripts to **generate random flight data** within India and **visualize flight paths** on an interactive folium map. The project consists of two main scripts:
 
 1. **`generate_random_flights.py`** - Generates random flight data and saves it as a CSV file.
-2. **`simulate_flights.py`** - Reads flight data, simulates movement, and overlays paths on a folium-based map. Generates flight data as multiple .csv files based on timestamp.
+2. **`simulate_flights.py`** - Reads flight data, simulates movement, saves timestamped flight data, and overlays paths on a folium-based map.
 
 ---
 
@@ -52,7 +52,7 @@ Flight_ID,Start_Latitude,Start_Longitude,Start_Altitude,End_Latitude,End_Longitu
 
 ## **2️⃣ Simulating and Visualizing Flights**
 ### **Script: `simulate_flights.py`**
-This script reads flight data from a CSV file, simulates movement, and overlays the flight paths on an **interactive folium map**.
+This script reads flight data from a CSV file, simulates movement, saves flight position data at **each timestep**, and overlays the flight paths on an **interactive folium map**.
 
 ### **Usage**
 ```bash
@@ -69,17 +69,45 @@ python simulate_flights.py --file <CSV_FILE> --num_steps <NUMBER>
 ```bash
 python simulate_flights.py --file flights_gps.csv --num_steps 50
 ```
-- Reads **`flights_gps.csv`**, simulates **50 timesteps**, and generates an **interactive map**.
+- Reads **`flights_gps.csv`**, simulates **50 timesteps**, saves **timestamped flight data**, and generates an **interactive map**.
 
-### **Output: `flights_map.html`**
-- An **interactive map** with:
-  - **Blue flight paths** over India
-  - **Green airplane markers** for start points
-  - **Red flag markers** for end points
-  - **Animated flight movements** using `AntPath`
+---
 
-### **Example Map Screenshot**
-![alt text](image.png)
+## **3️⃣ Output Files**
+### **1. Timestamped Flight Data (`flight_positions_by_time/`)**
+This script generates one CSV file per timestep, containing all flights' positions at that moment.
+
+#### **Example:**
+```
+flight_positions_by_time/flight_positions_t0.0.csv
+flight_positions_by_time/flight_positions_t0.5.csv
+flight_positions_by_time/flight_positions_t1.0.csv
+...
+```
+Each file contains **the GPS position of every flight at that specific timestamp**.
+
+#### **Example CSV (`flight_positions_t0.0.csv`)**
+```
+Flight_ID,Latitude,Longitude,Altitude
+1,22.4563,75.8745,3500
+2,15.8745,81.4523,200
+3,10.2145,76.8745,2500
+```
+
+---
+
+### **2. Interactive Flight Map (`flights_map.html`)**
+- Displays **flight paths as blue lines**  
+- Uses **green airplane icons for start points**  
+- Uses **red flag icons for end points**  
+- Flight paths are **animated** using `AntPath`  
+- Fully **interactive map with zoom and pan**  
+
+To view the interactive flight map, simply open **`flights_map.html`** in any web browser.
+
+The folloing is an example of the map. 
+
+![alt text](flight_paths.png)
 
 ---
 
@@ -87,14 +115,14 @@ python simulate_flights.py --file flights_gps.csv --num_steps 50
 | Script | Purpose |
 |--------|---------|
 | `generate_random_flights.py` | Generates random flight data within India |
-| `simulate_flights.py` | Simulates and visualizes flights on an interactive folium map |
+| `simulate_flights.py` | Simulates and visualizes flights on an interactive folium map and saves timestamped flight data |
 
 ---
 
 ## **📌 Notes**
 - The **flight paths are random** and do not represent real-world flights.
 - The **map is saved as `flights_map.html`** and can be opened in any web browser.
-- You can modify the **number of timesteps** for more detailed simulations.
+- The **flight position data is saved per timestamp** in `flight_positions_by_time/`.
 
 ---
 
@@ -102,4 +130,3 @@ python simulate_flights.py --file flights_gps.csv --num_steps 50
 This project is open-source and free to use.
 
 ---
-
