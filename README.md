@@ -81,14 +81,13 @@ flight_positions_by_time/flight_positions_t0.5.csv
 flight_positions_by_time/flight_positions_t1.0.csv
 ...
 ```
-Each file contains **the GPS position of every flight at that specific timestamp**.
+Each file contains **the GPS position of every flight and veclocity at that specific timestamp**.
 
 #### **Example CSV (`flight_positions_t0.0.csv`)**
 ```
-Flight_ID,Latitude,Longitude,Altitude
-1,22.4563,75.8745,3500
-2,15.8745,81.4523,200
-3,10.2145,76.8745,2500
+FFlight_ID,Latitude,Longitude,Altitude,Velocity
+1,22.4563,75.8745,3500,750
+2,15.8745,81.4523,200,580
 ```
 
 ---
