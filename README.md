@@ -1,6 +1,3 @@
-Here is the **updated `README.md`** file incorporating the new feature of saving flight data by timesteps.
-
----
 
 # **Flight Path Simulation and Visualization**
 
