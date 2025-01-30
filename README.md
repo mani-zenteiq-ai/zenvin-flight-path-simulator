@@ -85,7 +85,7 @@ Each file contains **the GPS position of every flight and veclocity at that spec
 
 #### **Example CSV (`flight_positions_t0.0.csv`)**
 ```
-FFlight_ID,Latitude,Longitude,Altitude,Velocity
+Flight_ID,Latitude,Longitude,Altitude,Velocity
 1,22.4563,75.8745,3500,750
 2,15.8745,81.4523,200,580
 ```
