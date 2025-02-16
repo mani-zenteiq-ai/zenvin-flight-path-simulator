@@ -11,7 +11,10 @@ This repository contains Python scripts to **generate random flight data** withi
 ## **Installation**
 Before running the scripts, install the required dependencies:
 ```bash
-pip install numpy pandas folium argparse
+
+uv init
+uv add ruff
+uv pip install numpy pandas folium argparse
 ```
 
 ---
@@ -22,7 +25,7 @@ This script generates random flight data within India's geographical bounds and 
 
 ### **Usage**
 ```bash
-python generate_random_flights.py --num_flights <NUMBER> --output <FILENAME>
+uv run python generate_random_flights.py --num_flights <NUMBER> --output <FILENAME>
 ```
 
 ### **Arguments**
@@ -33,7 +36,7 @@ python generate_random_flights.py --num_flights <NUMBER> --output <FILENAME>
 
 ### **Example**
 ```bash
-python generate_random_flights.py --num_flights 100 --output flights_gps.csv
+uv run python generate_random_flights.py --num_flights 100 --output flights_gps.csv
 ```
 - Generates **100 flights** and saves them to `flights_gps.csv`.
 
@@ -53,7 +56,7 @@ This script reads flight data from a CSV file, simulates movement, saves flight 
 
 ### **Usage**
 ```bash
-python simulate_flights.py --file <CSV_FILE> --num_steps <NUMBER>
+uv run python simulate_flights.py --file <CSV_FILE> --num_steps <NUMBER>
 ```
 
 ### **Arguments**
@@ -64,7 +67,7 @@ python simulate_flights.py --file <CSV_FILE> --num_steps <NUMBER>
 
 ### **Example**
 ```bash
-python simulate_flights.py --file flights_gps.csv --num_steps 50
+uv python simulate_flights.py --file flights_gps.csv --num_steps 50
 ```
 - Reads **`flights_gps.csv`**, simulates **50 timesteps**, saves **timestamped flight data**, and generates an **interactive map**.
 
